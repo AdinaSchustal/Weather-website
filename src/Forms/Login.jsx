@@ -5,6 +5,7 @@ import Form from "./Form";
 import { connect } from "react-redux";
 import { setUserName } from "../redux/actions";
 import { Link } from "react-router-dom";
+import base from "../Firebase";
 
 const mapDispatchToProps = (dispatch) => ({
   setUserName: (name) => dispatch(setUserName(name)),
@@ -24,7 +25,9 @@ export default connect(
     };
 
     doSubmit = async () => {
+      const { email, password } = this.state.data;
       try {
+        await base.auth().signInWithEmailAndPassword(email, password);
         const { data } = await userService.login(this.state.data);
         const { jwt, name } = data;
         if (jwt) this.setUserName(name);

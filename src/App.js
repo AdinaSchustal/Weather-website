@@ -8,10 +8,12 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import WeatherHistory from "./Components/WeatherHistory";
 import Home from "./Components/Home";
+import { AuthProvider } from "./Components/Auth";
 
 function App() {
   return (
     <Provider store={store}>
+      {/* <AuthProvider> */}
       <Navbar />
       <Switch>
         <Route path="/register" component={Register} />
@@ -20,6 +22,7 @@ function App() {
         <Route path="/weather" component={Weather} />
         <Route path="/" component={Home} />
       </Switch>
+      {/* </AuthProvider> */}
     </Provider>
   );
 }

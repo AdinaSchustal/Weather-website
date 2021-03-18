@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { setUserName } from "../redux/actions";
+import base from "../Firebase";
 
 const mapStateToProps = (state) => {
   return {
@@ -20,6 +21,7 @@ export default connect(
   const logOut = () => {
     localStorage.removeItem("token");
     setUserName(null);
+    base.auth().signOut();
   };
 
   return (
