@@ -41,9 +41,9 @@ export default connect(
         {name && (
           <>
             <div className="navbar-brand">{`Hello ${name}!  `}</div>
-            <Link className="navbar-brand" to="/weather">
+            <NavLink className="navbar-brand" to="/weather">
               Weather Forcast
-            </Link>
+            </NavLink>
             <NavLink className="nav-item nav-link" to="/history">
               Browse History
             </NavLink>

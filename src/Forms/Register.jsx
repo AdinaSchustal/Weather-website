@@ -51,6 +51,11 @@ export default connect(
         this.props.history.push("/weather");
       } catch (ex) {
         alert(ex);
+        const user = { ...this.state.data };
+        user.email = "";
+        user.password = "";
+        user.name = "";
+        this.setState({ data: user });
         if (ex.response && ex.response.status === 400) {
           const errors = { ...this.state.errors };
           errors.username = ex.response.data;
