@@ -10,6 +10,7 @@ export function register(user) {
 }
 
 export function login(user) {
+  console.log("login", user);
   return http.post(apiUrl + "/login", {
     email: user.email,
     password: user.password,

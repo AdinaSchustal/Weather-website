@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   null
-)(function Weather({ user }) {
+)(function Weather({ user, history }) {
   const [temperature, setTemperature] = useState("-");
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");

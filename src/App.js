@@ -3,14 +3,15 @@ import Register from "./Forms/Register";
 import Login from "./Forms/Login";
 import Navbar from "./Components/Navbar";
 import Weather from "./Components/Weather";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import WeatherHistory from "./Components/WeatherHistory";
 import Home from "./Components/Home";
-import { AuthProvider } from "./Components/Auth";
+import { useEffect } from "react";
+//import { AuthProvider } from "./Components/Auth";
 
-function App() {
+function App(props) {
   return (
     <Provider store={store}>
       {/* <AuthProvider> */}
