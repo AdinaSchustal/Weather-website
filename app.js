@@ -24,7 +24,7 @@ const connectionParams = {
 };
 
 mongoose
-  .connect(process.env.DB_CONNECTION, connectionParams)
+  .connect('mongodb+srv://adina:adina@adinatest.cphd8f3.mongodb.net/', connectionParams)//.connect(process.env.DB_CONNECTION, connectionParams)
   .then(() => {
     console.log("Connected to DB");
   })
