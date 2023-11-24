@@ -4,6 +4,7 @@ import * as userService from "../services/userService";
 import Form from "./Form";
 import { connect } from "react-redux";
 import { setUserName } from "../redux/actions";
+import base from "../Firebase";
 
 const mapDispatchToProps = (dispatch) => ({
   setUserName: (name) => dispatch(setUserName(name)),
@@ -24,18 +25,21 @@ export default connect(
     };
 
     doSubmit = async () => {
+      const { email, password } = this.state.data;
       try {
         const { data } = await userService.register(this.state.data);
+        await base.auth().createUserWithEmailAndPassword(email, password);
         const { jwt, name } = data;
         if (jwt) this.setUserName(name);
         localStorage.setItem("token", jwt);
         this.props.history.push("/weather");
       } catch (ex) {
-        if (ex.response && ex.response.status === 400) {
-          const errors = { ...this.state.errors };
-          errors.username = ex.response.data;
-          this.setState({ errors });
-        }
+        alert(ex);
+        const user = { ...this.state.data };
+        user.email = "";
+        user.password = "";
+        user.name = "";
+        this.setState({ data: user });
       }
     };
 

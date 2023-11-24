@@ -5,6 +5,7 @@ import Form from "./Form";
 import { connect } from "react-redux";
 import { setUserName } from "../redux/actions";
 import { Link } from "react-router-dom";
+import base from "../Firebase";
 
 const mapDispatchToProps = (dispatch) => ({
   setUserName: (name) => dispatch(setUserName(name)),
@@ -24,7 +25,9 @@ export default connect(
     };
 
     doSubmit = async () => {
+      const { email, password } = this.state.data;
       try {
+        // await base.auth().signInWithEmailAndPassword(email, password);
         const { data } = await userService.login(this.state.data);
         const { jwt, name } = data;
         if (jwt) this.setUserName(name);
@@ -41,7 +44,7 @@ export default connect(
 
     render() {
       return (
-        <div className="login">
+        <div className="login ">
           <br />
           <form className="inner" onSubmit={this.handleSubmit}>
             <h3>Login</h3>
@@ -62,8 +65,8 @@ export default connect(
     }
   }
 );
-{
-  /* <form className="inner">
+
+/* <form className="inner">
             <h3>Log in</h3>
 
             <div className="form-group ">
@@ -104,4 +107,3 @@ export default connect(
               Forgot <a href="#">password?</a>
             </p>
           </form> */
-}

@@ -1,7 +1,8 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, NavLink, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { setUserName } from "../redux/actions";
+import base from "../Firebase";
 
 const mapStateToProps = (state) => {
   return {
@@ -20,14 +21,20 @@ export default connect(
   const logOut = () => {
     localStorage.removeItem("token");
     setUserName(null);
+    base.auth().signOut();
   };
+
+  useEffect(() => {
+    localStorage.removeItem("token");
+    setUserName("");
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-light">
       <div className="navbar-nav d-flex flex-row mb-1">
         {!name && (
           <>
-            {" "}
+            <Redirect to="/" />{" "}
             <Link className="navbar-brand" to="/">
               Weather Forcast
             </Link>
@@ -39,11 +46,11 @@ export default connect(
         {name && (
           <>
             <div className="navbar-brand">{`Hello ${name}!  `}</div>
-            <Link className="navbar-brand" to="/weather">
+            <NavLink className="navbar-brand" to="/weather">
               Weather Forcast
-            </Link>
+            </NavLink>
             <NavLink className="nav-item nav-link" to="/history">
-              Browse History
+              History
             </NavLink>
             <NavLink className="nav-item nav-link" onClick={logOut} to="/login">
               Log out

@@ -1,5 +1,5 @@
 import { getHistory } from "../services/weatherService";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function WeatherHistory(props) {
   const [history, setHistory] = useState([]);
@@ -21,13 +21,17 @@ function WeatherHistory(props) {
     return new Date(string).toLocaleDateString([], options);
   };
 
+  useEffect(() => {
+    getHistoryData();
+  });
+
   return (
     <>
       <br />
       <div>
-        <button className="btn btn-primary" onClick={getHistoryData}>
+        {/* <button className="btn btn-primary" onClick={getHistoryData}>
           Get History
-        </button>
+        </button> */}
         <ul>
           {history.reverse().map((w) => (
             <li key={w._id}>

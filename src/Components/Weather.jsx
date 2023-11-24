@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   null
-)(function Weather({ user }) {
+)(function Weather({ user, history }) {
   const [temperature, setTemperature] = useState("-");
   const [description, setDescription] = useState("");
   const [name, setName] = useState("");
@@ -50,9 +50,9 @@ export default connect(
     if (!celsius) {
       setCelsius(true);
       setUnit("C");
-      setTemperature(Math.floor(((temperature - 32) * 5) / 9));
+      setTemperature(Math.round(((temperature - 32) * 5) / 9));
     } else {
-      setTemperature(Math.floor((temperature * 9) / 5 + 32));
+      setTemperature(Math.round((temperature * 9) / 5 + 32));
       setCelsius(false);
       setUnit("F");
     }
@@ -68,9 +68,12 @@ export default connect(
       />
       <br />
       {
-        <div onClick={() => celsiusToFahrenheit()}>
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => celsiusToFahrenheit()}
+        >
           {temperature}°{unit}
-        </div>
+        </button>
       }
       <br />
       {description}
